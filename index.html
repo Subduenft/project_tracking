@@ -1,0 +1,278 @@
+<?php session_start(); ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavBar Wallet</title>
+    <link rel="icon" type="image/icon type" href="images/mt-logo-blk.png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+ 
+<nav class="navbar">
+    <div class="brand-title"><img class="navLogo" src="images/mt-logo-blk.png" alt="MyTxns"></div>
+    <a href="#" class="toggle-button">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </a>
+    <div class="navbar-links">
+        <ul>
+            <li><a href="https://nanacalc.com/" target="_blank"><img class="ckNana" src="images/ckBanana.gif" alt="nanacalc.com"></a></li>
+            <li><a><button onclick="loginWithEth()" class="loginBtn" id="userAddress">Login</button></a></li>
+            <li><a><img class="logoutBtn" id="logoutButton" onclick="logout()" src="images/logout_symbol_blk.png" alt="logout"></a></li>
+        </ul>
+    </div>
+</nav>
+
+<br><br>
+
+<!-- Add Data Pop Up Form -->
+<div class="modal fade" id="studentaddmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Student Data </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="insertcode.php" method="POST">
+
+                <div class="modal-body">
+                    
+                    <input class="form-control" type="text" name="user_address" id="loggedInAddy">
+                    <input class="" type="date" name="mint_date">
+                    
+                    
+                    <div class="form-group">
+                        <input type="text" name="project_name" class="form-control" placeholder="Project Name:">
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" name="mintlist">
+                            <option value="" selected hidden>Status...</option>
+                            <option value="Whitelist">Whitelist</option>
+                            <option value="wl Pending">Pending</option>
+                            <option value="wl Needed">Need WL</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <img class="ckNana" src="images/eth_logo.png" alt="nanacalc.com">
+                        <input class="" type="float" name="price" placeholder="Price:">
+                    </div>
+
+                    <div>
+                        <input class="" type="url" d="website" name="website" placeholder="Website url...">
+                    </div>
+                    <div>
+                        <input class="" type="url" id="twitter" name="twitter" placeholder="Twitter url...">
+                    </div>
+                    <div>
+                        <textarea class="" id="note" name="note" rows="5" cols="30"
+                            placeholder="Notes | copy and pasta info..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" name="insertdata" class="btn btn-primary">Save Data</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- EDIT POP UP FORM (Bootstrap MODAL) -->
+<div class="modal fade" id="editmodal" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Edit Student Data </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                
+            <form action="updatecode.php" method="POST">
+
+                <div class="modal-body">
+                    <input class="form-control" type="text" name="edit_user_address" id="edit_user_address">
+                    <input class="form-control" type="text" name="edit_proj_id" id="edit_proj_id">
+                    <input class="" type="date"  id="edit_mint_date" name="edit_mint_date">
+                
+                
+                    <div class="form-group">
+                        <input type="text" name="edit_project_name" id="edit_project_name" class="form-control" placeholder="Project Name:">
+                    </div>
+                
+                    <div class="form-group">
+                        <select class="form-control" name="edit_mintlist" id="edit_mintlist">
+                            <option value="" selected hidden>Status...</option>
+                            <option value="Whitelist">Whitelist</option>
+                            <option value="wl Pending">Pending</option>
+                            <option value="wl Needed">Need WL</option>
+                        </select>
+                    </div>
+                
+                    <div class="form-group">
+                        <img class="ckNana" src="images/eth_logo.png" alt="nanacalc.com">
+                        <input class="" type="float" name="edit_price" id="edit_price" placeholder="Price:">
+                    </div>
+                
+                    <div>
+                        <input class="" type="url" id="edit_website" name="edit_website" placeholder="Website url...">
+                    </div>
+                    <div>
+                        <input class="" type="url" id="edit_twitter" name="edit_twitter" placeholder="Twitter url...">
+                    </div>
+                    <div>
+                        <textarea class="" id="edit_note" name="edit_note" rows="5" cols="30"
+                            placeholder="Notes | copy and pasta info..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- DELETE POP UP FORM (Bootstrap MODAL) -->
+<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Delete Project ? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="deletecode.php" method="POST">
+
+                <div class="modal-body">
+
+                    <input type="hidden" name="delete_id" id="delete_id">
+                    <input type="text" name="delete_name" id="delete_name" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
+                    <button type="submit" name="deletedata" class="btn btn-primary"> Yes !! Delete it. </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- main data table -->
+
+<div class="container">
+    <div class="jumbotron">
+        <div class="card">
+            <h2> My Projects </h2>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentaddmodal" onclick="insertAdd()">
+                    ADD DATA
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+
+                <?php
+
+                    $username = "<script>document.write(window.localStorage.getItem('userAddress'));</script>";
+
+                    echo $username;
+
+                    $connection = mysqli_connect("localhost", "root", "", "myprojects");
+                    $db = mysqli_select_db($connection, 'phpcrud');
+
+
+                    $query = "SELECT * FROM projects WHERE `user_address` = '$username' ";
+                    echo $query;
+                    $query_run = mysqli_query($connection, $query);
+                    ?>
+                <table id="datatableid" class="table table-bordered table-dark">
+                    <thead>
+                        <tr>
+                            <th> user_address </th>
+                            <th> proj_id </th>
+                            <th> Mint Date </th>
+                            <th> Project Name </th>
+                            <th> Status </th>
+                            <th> Price </th>
+                            <th> Website </th>
+                            <th> Twitter </th>
+                            <th> Note </th>
+                            <th> Edit </th>
+                        </tr>
+                    </thead>
+                    <?php
+                        if ($query_run) {
+                            foreach ($query_run as $row) {
+                        ?>
+                    <tbody>
+                        <tr>
+                            <td><?php echo $row['user_address']; ?></td>
+                            <td><?php echo $row['proj_id']; ?></td>
+                            <td><?php echo $row['mint_date']; ?></td>
+                            <td><?php echo $row['project_name']; ?></td>
+                            <td><?php echo $row['mintlist']; ?></td>
+                            <td><?php echo $row['price']; ?></td>
+                            <td><?php echo $row['website']; ?></td>
+                            <td><?php echo $row['twitter']; ?></td>
+                            <td> <?php echo $row['note']; ?></td>
+                            <td>
+                                <button type="button" name="editProj" class="btn btn-success editbtn"> EDIT </button>
+                                <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <?php
+                            }
+                        } else {
+                            echo "No Record Found";
+                        }
+                        ?>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script> -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+<!-- <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script> -->
+<!-- <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script> -->
+
+
+
+</body>
+</html>

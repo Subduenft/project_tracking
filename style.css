@@ -1,0 +1,151 @@
+
+@font-face {
+    font-family: 'MyWebFont';
+    src: url('font/LuloClean.woff2') format('woff2'),
+        url('font/LuloClean.woff') format('woff');
+}
+
+
+body {
+    background-color: #222222;
+    font-family: 'MyWebFont';
+    text-align: center;
+}
+
+button {
+    font-family: 'MyWebFont';
+    background-color: #fffada;
+}
+
+
+/* Start NavBar */
+
+.navbar {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    background-color: inherit;
+    color: white;
+}
+
+.navLogo {
+    width: auto;
+    height: 45px;
+    /* float: left; */
+    padding-top: 3%;
+    padding-left: 10%;
+}
+
+.ckNana {
+    width: auto;
+    height: 27px;
+    margin-right: 10px;
+    /* transform: rotate(50deg); */
+}
+
+.loginBtn {
+    background-color: aquamarine;
+    border-radius: 3px;
+    width: 90px;
+    height: 25px;
+    font-size: 11px;
+    color: black;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.logoutBtn {
+    width: auto;
+    height: 20px;
+    padding: 1px 5px 0px 5px;
+}
+
+
+.brand-title {
+    font-size: 1.5rem;
+    margin: .5rem;
+}
+
+.navbar-links {
+    height: 100%;
+    padding-right: 5%;
+}
+
+.navbar-links ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links li {
+    list-style: none;
+}
+
+.navbar-links li a {
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: none;
+}
+
+/* .navbar-links li:hover {
+    border-bottom: 2px solid white;
+} */
+
+.toggle-button {
+    position: absolute;
+    top: 1.25rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 21px;
+}
+
+.toggle-button .bar {
+    height: 1px;
+    width: 70%;
+    background-color: black;
+    border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .toggle-button {
+        display: flex;
+    }
+
+    .navbar-links {
+        display: none;
+        width: 100%;
+    }
+
+    .navbar-links ul {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .navbar-links ul li {
+        text-align: right;
+    }
+
+    .navbar-links ul li a {
+        padding: .5rem 1rem;
+    }
+
+    .navbar-links.active {
+        display: flex;
+    }
+}
+
+/* End NavBar */
+
+
